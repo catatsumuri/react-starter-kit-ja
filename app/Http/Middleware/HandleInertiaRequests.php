@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -38,6 +39,9 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        $locale = app()->getLocale();
+        $fallbackLocale = config('app.fallback_locale');
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -46,6 +50,24 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'locale' => $locale,
+            'fallbackLocale' => $fallbackLocale,
+            'translations' => $this->frontendTranslations($locale),
+            'fallbackTranslations' => $fallbackLocale !== $locale
+                ? $this->frontendTranslations($fallbackLocale)
+                : [],
         ];
+    }
+
+    /**
+     * Get frontend translations for the given locale.
+     *
+     * @return array<string, mixed>
+     */
+    protected function frontendTranslations(string $locale): array
+    {
+        $translations = Lang::get('frontend', [], $locale);
+
+        return is_array($translations) ? $translations : [];
     }
 }
