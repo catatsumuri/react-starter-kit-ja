@@ -5,6 +5,8 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { initializeTheme } from './hooks/use-appearance';
+import { configureI18n } from './lib/i18n';
+import type { SharedData } from './types';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -16,6 +18,16 @@ createInertiaApp({
             import.meta.glob('./pages/**/*.tsx'),
         ),
     setup({ el, App, props }) {
+        const { locale, fallbackLocale, translations, fallbackTranslations } =
+            props.initialPage.props as SharedData;
+
+        configureI18n(
+            locale,
+            fallbackLocale,
+            translations,
+            fallbackTranslations,
+        );
+
         const root = createRoot(el);
 
         root.render(
