@@ -11,6 +11,7 @@ import HeadingSmall from '@/components/heading-small';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useLang } from '@/hooks/useLang';
 import { edit } from '@/routes/user-password';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,6 +24,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Password() {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
+    const { __ } = useLang();
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -31,8 +33,10 @@ export default function Password() {
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Update password"
-                        description="Ensure your account is using a long, random password to stay secure"
+                        title={__('Update password')}
+                        description={__(
+                            'Ensure your account is using a long, random password to stay secure',
+                        )}
                     />
 
                     <Form
@@ -61,7 +65,7 @@ export default function Password() {
                             <>
                                 <div className="grid gap-2">
                                     <Label htmlFor="current_password">
-                                        Current password
+                                        {__('Current password')}
                                     </Label>
 
                                     <Input
@@ -71,7 +75,7 @@ export default function Password() {
                                         type="password"
                                         className="mt-1 block w-full"
                                         autoComplete="current-password"
-                                        placeholder="Current password"
+                                        placeholder={__('Current password')}
                                     />
 
                                     <InputError
@@ -81,7 +85,7 @@ export default function Password() {
 
                                 <div className="grid gap-2">
                                     <Label htmlFor="password">
-                                        New password
+                                        {__('New password')}
                                     </Label>
 
                                     <Input
@@ -91,7 +95,7 @@ export default function Password() {
                                         type="password"
                                         className="mt-1 block w-full"
                                         autoComplete="new-password"
-                                        placeholder="New password"
+                                        placeholder={__('New password')}
                                     />
 
                                     <InputError message={errors.password} />
@@ -99,7 +103,7 @@ export default function Password() {
 
                                 <div className="grid gap-2">
                                     <Label htmlFor="password_confirmation">
-                                        Confirm password
+                                        {__('Confirm password')}
                                     </Label>
 
                                     <Input
@@ -108,7 +112,7 @@ export default function Password() {
                                         type="password"
                                         className="mt-1 block w-full"
                                         autoComplete="new-password"
-                                        placeholder="Confirm password"
+                                        placeholder={__('Confirm password')}
                                     />
 
                                     <InputError
@@ -132,7 +136,7 @@ export default function Password() {
                                         leaveTo="opacity-0"
                                     >
                                         <p className="text-sm text-neutral-600">
-                                            Saved
+                                            {__('Saved.')}
                                         </p>
                                     </Transition>
                                 </div>
