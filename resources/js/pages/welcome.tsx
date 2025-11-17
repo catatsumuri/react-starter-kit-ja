@@ -1,6 +1,7 @@
 import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
+import { useLang } from '@/hooks/useLang';
 
 export default function Welcome({
     canRegister = true,
@@ -8,6 +9,7 @@ export default function Welcome({
     canRegister?: boolean;
 }) {
     const { auth } = usePage<SharedData>().props;
+    const { __ } = useLang();
 
     return (
         <>
@@ -26,7 +28,7 @@ export default function Welcome({
                                 href={dashboard()}
                                 className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                             >
-                                Dashboard
+                                {__('Dashboard')}
                             </Link>
                         ) : (
                             <>
@@ -34,14 +36,14 @@ export default function Welcome({
                                     href={login()}
                                     className="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
                                 >
-                                    Log in
+                                    {__('Log in')}
                                 </Link>
                                 {canRegister && (
                                     <Link
                                         href={register()}
                                         className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                                     >
-                                        Register
+                                        {__('Register')}
                                     </Link>
                                 )}
                             </>
@@ -73,7 +75,7 @@ export default function Welcome({
                                             target="_blank"
                                             className="ml-1 inline-flex items-center space-x-1 font-medium text-[#f53003] underline underline-offset-4 dark:text-[#FF4433]"
                                         >
-                                            <span>Documentation</span>
+                                            <span>{__('Documentation')}</span>
                                             <svg
                                                 width={10}
                                                 height={11}
