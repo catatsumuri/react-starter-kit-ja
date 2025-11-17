@@ -3,9 +3,13 @@ import { usePage } from '@inertiajs/react';
 type Replaces = Record<string, string | number>;
 type LangValue = string | { [key: string]: string | LangValue };
 type LangObject = Record<string, LangValue>;
+type JsonLang = Record<string, string>;
 
 export function useLang() {
-    const { lang } = usePage<{ lang: LangObject }>().props;
+    const { lang, jsonLang = {} } = usePage<{
+        lang: LangObject;
+        jsonLang?: JsonLang;
+    }>().props;
 
     function trans(key: string, replaces: Replaces | string = {}): string {
         const raw = getValueFromKey(key);
@@ -34,6 +38,12 @@ export function useLang() {
     }
 
     function getValueFromKey(key: string): string | undefined {
+        // Try JSON translations first (for Laravel's built-in messages)
+        if (jsonLang[key]) {
+            return jsonLang[key];
+        }
+
+        // Then try nested translations (for custom translations like 'validation.required')
         const segments = key.split('.');
         let current: LangValue | undefined = lang;
 
