@@ -41,7 +41,17 @@
 
 | 翻訳キー | 使用箇所 | 説明 | starter-kits.json |
 |---------|---------|------|------------------|
-| 未実装 | - | 未日本語化 | - |
+| `Create an account` | AuthLayout title | ページタイトル | ✓ 存在 |
+| `Enter your details below to create your account` | AuthLayout description | ページ説明文 | ✓ 存在 |
+| `Register` | Head title | ページタイトル | ✓ 存在 |
+| `Name` | Label | 名前ラベル | ✓ 存在 |
+| `Full name` | Input placeholder | 名前プレースホルダー | ✓ 存在 |
+| `Email address` | Label | メールアドレスラベル | ✓ 存在 |
+| `Password` | Label, Input placeholder | パスワードラベル、プレースホルダー | ✓ 存在 |
+| `Confirm password` | Label, Input placeholder | パスワード確認ラベル、プレースホルダー | ✓ 存在 |
+| `Create account` | Button | アカウント作成ボタン | ✓ 存在 |
+| `Already have an account?` | Text | ログイン案内文 | ✓ 存在 |
+| `Log in` | TextLink | ログインリンク | ✓ 存在 |
 
 #### `/resources/js/pages/auth/verify-email.tsx`
 
@@ -113,13 +123,15 @@
 
 | 翻訳キー | 使用ファイル | starter-kits.json |
 |---------|------------|------------------|
-| `Email Address` | login.tsx, forgot-password.tsx | ✓ 存在 |
+| `Email Address` | login.tsx (Label), forgot-password.tsx (Label) | ✓ 存在 |
+| `Email address` | register.tsx (Label) | ✓ 存在 |
+| `Password` | login.tsx (Label, placeholder), register.tsx (Label, placeholder) | ✓ 存在 |
+| `Log in` | login.tsx (ボタン、タイトル), register.tsx (リンク) | ✓ 存在 |
 | `log in` | forgot-password.tsx (リンクテキスト) | ✓ 存在 |
-| `Log in` | login.tsx (ボタン、タイトル) | ✓ 存在 |
 
 ## 今後の作業
 
-- [ ] register.tsx の日本語化
+- [x] register.tsx の日本語化
 - [ ] verify-email.tsx の日本語化
 - [ ] reset-password.tsx の日本語化
 - [ ] confirm-password.tsx の日本語化
@@ -138,6 +150,6 @@
 
 ## 注意事項
 
-- 現在、login.tsxとforgot-password.tsxで使用されているすべての翻訳キーは`lang/ja/starter-kits.json`に存在します
+- 現在、login.tsx、forgot-password.tsx、register.tsxで使用されているすべての翻訳キーは`lang/ja/starter-kits.json`に存在します
 - 新しいページを日本語化する際は、まず`starter-kits.json`に必要なキーが存在するか確認してください
 - キーが存在しない場合は、`starter-kits.json`に追加する必要があります
