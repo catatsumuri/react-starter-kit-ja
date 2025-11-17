@@ -3,15 +3,20 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import { useLang } from '@/hooks/useLang';
 import AuthLayout from '@/layouts/auth-layout';
 import { store } from '@/routes/password/confirm';
 import { Form, Head } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
+    const { __ } = useLang();
+
     return (
         <AuthLayout
             title="Confirm your password"
-            description="This is a secure area of the application. Please confirm your password before continuing."
+            description={__(
+                'This is a secure area of the application. Please confirm your password before continuing.',
+            )}
         >
             <Head title="Confirm password" />
 
@@ -19,12 +24,12 @@ export default function ConfirmPassword() {
                 {({ processing, errors }) => (
                     <div className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password">{__('Password')}</Label>
                             <Input
                                 id="password"
                                 type="password"
                                 name="password"
-                                placeholder="Password"
+                                placeholder={__('Password')}
                                 autoComplete="current-password"
                                 autoFocus
                             />
@@ -39,7 +44,7 @@ export default function ConfirmPassword() {
                                 data-test="confirm-password-button"
                             >
                                 {processing && <Spinner />}
-                                Confirm password
+                                {__('Confirm password')}
                             </Button>
                         </div>
                     </div>

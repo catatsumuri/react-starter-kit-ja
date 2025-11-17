@@ -82,7 +82,7 @@
     "Sign up": "新規登録",
     "status": "status",
     "System": "システム",
-    "This is a secure area of the application. Please confirm your password before continuing.": "This is a secure area of the application. Please confirm your password before continuing.",
+    "This is a secure area of the application. Please confirm your password before continuing.": "これはアプリケーションの保護された領域です。続行する前にパスワードを確認してください。",
     "To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app.": "To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app.",
     "Two Factor Authentication": "Two Factor Authentication",
     "Two-Factor Auth": "二要素認証",
