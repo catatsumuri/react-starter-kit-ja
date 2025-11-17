@@ -2,6 +2,7 @@ import { Head } from '@inertiajs/react';
 
 import AppearanceTabs from '@/components/appearance-tabs';
 import HeadingSmall from '@/components/heading-small';
+import { useLang } from '@/hooks/useLang';
 import { type BreadcrumbItem } from '@/types';
 
 import AppLayout from '@/layouts/app-layout';
@@ -16,6 +17,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Appearance() {
+    const { __ } = useLang();
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Appearance settings" />
@@ -24,7 +27,9 @@ export default function Appearance() {
                 <div className="space-y-6">
                     <HeadingSmall
                         title="Appearance settings"
-                        description="Update your account's appearance settings"
+                        description={__(
+                            "Update your account's appearance settings",
+                        )}
                     />
                     <AppearanceTabs />
                 </div>
