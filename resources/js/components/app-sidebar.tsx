@@ -10,13 +10,14 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { useLang } from '@/hooks/useLang';
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
 import AppLogo from './app-logo';
 
-const mainNavItems: NavItem[] = [
+const baseMainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
@@ -24,7 +25,7 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const footerNavItems: NavItem[] = [
+const baseFooterNavItems: NavItem[] = [
     {
         title: 'Repository',
         href: 'https://github.com/laravel/react-starter-kit',
@@ -38,6 +39,16 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+    const { __ } = useLang();
+    const mainNavItems = baseMainNavItems.map((item) => ({
+        ...item,
+        title: __(item.title),
+    }));
+    const footerNavItems = baseFooterNavItems.map((item) => ({
+        ...item,
+        title: __(item.title),
+    }));
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
