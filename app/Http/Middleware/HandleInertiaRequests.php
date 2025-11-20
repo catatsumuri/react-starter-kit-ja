@@ -9,6 +9,11 @@ use Inertia\Middleware;
 class HandleInertiaRequests extends Middleware
 {
     /**
+     * Cache for loaded translation files per locale.
+     */
+    protected array $translationCache = [];
+
+    /**
      * The root template that's loaded on the first page visit.
      *
      * @see https://inertiajs.com/server-side-setup#root-template
@@ -67,6 +72,10 @@ class HandleInertiaRequests extends Middleware
             return [];
         }
 
+        if (isset($this->translationCache[$locale])) {
+            return $this->translationCache[$locale];
+        }
+
         $files = [
             lang_path("{$locale}.json"),
             lang_path("{$locale}/starter-kit.json"),
@@ -87,6 +96,6 @@ class HandleInertiaRequests extends Middleware
             }
         }
 
-        return $translations;
+        return $this->translationCache[$locale] = $translations;
     }
 }
