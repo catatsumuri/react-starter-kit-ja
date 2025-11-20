@@ -12,10 +12,12 @@ import { store } from '@/routes/two-factor/login';
 import { Form, Head } from '@inertiajs/react';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { useMemo, useState } from 'react';
+import { useLang } from '@/hooks/useLang';
 
 export default function TwoFactorChallenge() {
     const [showRecoveryInput, setShowRecoveryInput] = useState<boolean>(false);
     const [code, setCode] = useState<string>('');
+    const { __ } = useLang();
 
     const authConfigContent = useMemo<{
         title: string;
@@ -24,20 +26,22 @@ export default function TwoFactorChallenge() {
     }>(() => {
         if (showRecoveryInput) {
             return {
-                title: 'Recovery Code',
-                description:
+                title: __('Recovery Code'),
+                description: __(
                     'Please confirm access to your account by entering one of your emergency recovery codes.',
-                toggleText: 'login using an authentication code',
+                ),
+                toggleText: __('login using an authentication code'),
             };
         }
 
         return {
-            title: 'Authentication Code',
-            description:
+            title: __('Authentication Code'),
+            description: __(
                 'Enter the authentication code provided by your authenticator application.',
-            toggleText: 'login using a recovery code',
+            ),
+            toggleText: __('login using a recovery code'),
         };
-    }, [showRecoveryInput]);
+    }, [showRecoveryInput, __]);
 
     const toggleRecoveryMode = (clearErrors: () => void): void => {
         setShowRecoveryInput(!showRecoveryInput);
@@ -50,7 +54,7 @@ export default function TwoFactorChallenge() {
             title={authConfigContent.title}
             description={authConfigContent.description}
         >
-            <Head title="Two-Factor Authentication" />
+            <Head title={__('Two-Factor Authentication')} />
 
             <div className="space-y-6">
                 <Form
@@ -66,7 +70,7 @@ export default function TwoFactorChallenge() {
                                     <Input
                                         name="recovery_code"
                                         type="text"
-                                        placeholder="Enter recovery code"
+                                        placeholder={__('Enter recovery code')}
                                         autoFocus={showRecoveryInput}
                                         required
                                     />
@@ -107,11 +111,11 @@ export default function TwoFactorChallenge() {
                                 className="w-full"
                                 disabled={processing}
                             >
-                                Continue
+                                {__('Continue')}
                             </Button>
 
                             <div className="text-center text-sm text-muted-foreground">
-                                <span>or you can </span>
+                                <span>{__('or you can ')} </span>
                                 <button
                                     type="button"
                                     className="cursor-pointer text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
