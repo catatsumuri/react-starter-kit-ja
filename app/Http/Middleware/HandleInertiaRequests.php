@@ -55,7 +55,7 @@ class HandleInertiaRequests extends Middleware
     protected function frontendTranslations(): array
     {
         $locale = app()->getLocale();
-        $path = lang_path("{$locale}/starter-kit.json");
+        $path = lang_path("{$locale}/frontend.json");
 
         if (! File::exists($path)) {
             return [];
