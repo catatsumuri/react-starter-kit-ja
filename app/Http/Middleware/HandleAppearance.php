@@ -16,6 +16,19 @@ class HandleAppearance
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // If appearance feature is disabled, force system theme
+        if (! config('features.appearance.enabled', true)) {
+            View::share('appearance', 'system');
+
+            // Clear the appearance cookie if it exists
+            $response = $next($request);
+            if ($request->hasCookie('appearance')) {
+                return $response->withoutCookie('appearance');
+            }
+
+            return $response;
+        }
+
         View::share('appearance', $request->cookie('appearance') ?? 'system');
 
         return $next($request);

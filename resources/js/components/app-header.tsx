@@ -50,7 +50,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
     const getInitials = useInitials();
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
     const { __ } = useLang();
-    
+
     const mainNavItems: NavItem[] = [
         {
             title: __('Dashboard'),

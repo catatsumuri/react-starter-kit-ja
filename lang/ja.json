@@ -57,6 +57,13 @@
     "Too Many Requests": "リクエストが多すぎます",
     "Unauthorized": "認証が必要です",
     "Verify Email Address": "メールアドレスの確認",
+    "Welcome back! You have successfully logged in.": "ログインに成功しました",
     "Whoops!": "おっと！",
-    "You are receiving this email because we received a password reset request for your account.": "パスワード再設定のリクエストを受け付けました。"
+    "You are receiving this email because we received a password reset request for your account.": "パスワード再設定のリクエストを受け付けました。",
+    "Your password has been updated.": "パスワードを更新しました",
+    "Your profile has been updated.": "プロフィールを更新しました",
+    "Your account has been deleted.": "アカウントを削除しました",
+    "Two-factor authentication has been enabled.": "2要素認証を有効にしました",
+    "Two-factor authentication has been disabled.": "2要素認証を無効にしました",
+    "Recovery codes have been regenerated.": "リカバリーコードを再生成しました"
 }

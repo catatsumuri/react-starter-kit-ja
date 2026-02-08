@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Middleware\EnsureAccountDeletionIsEnabled;
+use App\Http\Middleware\EnsureAppearanceIsEnabled;
+use App\Http\Middleware\EnsureRegistrationIsEnabled;
+use App\Http\Middleware\EnsureTwoFactorAuthenticationIsEnabled;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
@@ -20,6 +24,10 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleAppearance::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
+            EnsureRegistrationIsEnabled::class,
+            EnsureTwoFactorAuthenticationIsEnabled::class,
+            EnsureAppearanceIsEnabled::class,
+            EnsureAccountDeletionIsEnabled::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

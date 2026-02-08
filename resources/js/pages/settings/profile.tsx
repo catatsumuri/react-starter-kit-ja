@@ -21,7 +21,7 @@ export default function Profile({
     mustVerifyEmail: boolean;
     status?: string;
 }) {
-    const { auth } = usePage<SharedData>().props;
+    const { auth, features } = usePage<SharedData>().props;
     const { __ } = useLang();
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -148,7 +148,7 @@ export default function Profile({
                     </Form>
                 </div>
 
-                <DeleteUser />
+                {features.account_deletion.enabled && <DeleteUser />}
             </SettingsLayout>
         </AppLayout>
     );

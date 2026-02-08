@@ -1,4 +1,6 @@
-import { useCallback, useMemo, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useMemo, useSyncExternalStore } from 'react';
+import { usePage } from '@inertiajs/react';
+import type { SharedData } from '@/types';
 
 export type ResolvedAppearance = 'light' | 'dark';
 export type Appearance = ResolvedAppearance | 'system';
@@ -77,6 +79,21 @@ export function initializeTheme(): void {
     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
 }
 
+export function clearAppearanceSettings(): void {
+    if (typeof window === 'undefined') return;
+
+    try {
+        localStorage.removeItem('appearance');
+        document.cookie = 'appearance=; path=/; max-age=0';
+    } catch {
+        // Ignore errors
+    }
+
+    currentAppearance = 'system';
+    applyTheme('system');
+    notify();
+}
+
 export function useAppearance(): UseAppearanceReturn {
     const appearance: Appearance = useSyncExternalStore(
         subscribe,
@@ -84,23 +101,49 @@ export function useAppearance(): UseAppearanceReturn {
         () => 'system',
     );
 
-    const resolvedAppearance: ResolvedAppearance = useMemo(
-        () => (isDarkMode(appearance) ? 'dark' : 'light'),
-        [appearance],
+    // Get feature flag from Inertia page props
+    const { features } = usePage<SharedData>().props;
+
+    // If appearance feature is disabled, clear settings and force system
+    useEffect(() => {
+        if (!features.appearance.enabled) {
+            clearAppearanceSettings();
+        }
+    }, [features.appearance.enabled]);
+
+    const resolvedAppearance: ResolvedAppearance = useMemo(() => {
+        // If feature is disabled, always resolve to system preference
+        if (!features.appearance.enabled) {
+            return isDarkMode('system') ? 'dark' : 'light';
+        }
+
+        return isDarkMode(appearance) ? 'dark' : 'light';
+    }, [appearance, features.appearance.enabled]);
+
+    const handleUpdateAppearance = useCallback(
+        (mode: Appearance): void => {
+            // Prevent updates when feature is disabled
+            if (!features.appearance.enabled) {
+                return;
+            }
+
+            currentAppearance = mode;
+
+            // Store in localStorage for client-side persistence...
+            localStorage.setItem('appearance', mode);
+
+            // Store in cookie for SSR...
+            setCookie('appearance', mode);
+
+            applyTheme(mode);
+            notify();
+        },
+        [features.appearance.enabled],
     );
 
-    const updateAppearance = useCallback((mode: Appearance): void => {
-        currentAppearance = mode;
-
-        // Store in localStorage for client-side persistence...
-        localStorage.setItem('appearance', mode);
-
-        // Store in cookie for SSR...
-        setCookie('appearance', mode);
-
-        applyTheme(mode);
-        notify();
-    }, []);
-
-    return { appearance, resolvedAppearance, updateAppearance } as const;
+    return {
+        appearance: features.appearance.enabled ? appearance : 'system',
+        resolvedAppearance,
+        updateAppearance: handleUpdateAppearance,
+    } as const;
 }

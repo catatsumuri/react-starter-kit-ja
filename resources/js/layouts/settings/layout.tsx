@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
@@ -10,11 +10,12 @@ import { edit as editAppearance } from '@/routes/appearance';
 import { edit } from '@/routes/profile';
 import { show } from '@/routes/two-factor';
 import { edit as editPassword } from '@/routes/user-password';
-import type { NavItem } from '@/types';
+import type { NavItem, SharedData } from '@/types';
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
     const { isCurrentUrl } = useCurrentUrl();
     const { __ } = useLang();
+    const { features } = usePage<SharedData>().props;
 
     // When server-side rendering, we only render the layout on the client...
     if (typeof window === 'undefined') {
@@ -32,16 +33,24 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
             href: editPassword(),
             icon: null,
         },
-        {
-            title: __('Two-Factor Authentication'),
-            href: show(),
-            icon: null,
-        },
-        {
-            title: __('Appearance'),
-            href: editAppearance(),
-            icon: null,
-        },
+        ...(features.two_factor_authentication.enabled
+            ? [
+                  {
+                      title: __('Two-Factor Authentication'),
+                      href: show(),
+                      icon: null,
+                  },
+              ]
+            : []),
+        ...(features.appearance.enabled
+            ? [
+                  {
+                      title: __('Appearance'),
+                      href: editAppearance(),
+                      icon: null,
+                  },
+              ]
+            : []),
     ];
     return (
         <div className="px-4 py-6">

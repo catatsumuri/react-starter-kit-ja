@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
 import { useLang } from '@/hooks/useLang';
 
 export default function DeleteUser() {
@@ -78,9 +79,8 @@ export default function DeleteUser() {
                                             {__('Password')}
                                         </Label>
 
-                                        <Input
+                                        <PasswordInput
                                             id="password"
-                                            type="password"
                                             name="password"
                                             ref={passwordInput}
                                             placeholder={__('Password')}
