@@ -19,21 +19,29 @@ export default function TwoFactorChallenge() {
     const [code, setCode] = useState<string>('');
     const { __ } = useLang();
 
-    const authConfigContent = showRecoveryInput
-        ? {
-              title: __('Recovery Code'),
-              description: __(
-                  'Please confirm access to your account by entering one of your emergency recovery codes.',
-              ),
-              toggleText: __('login using an authentication code'),
-          }
-        : {
-              title: __('Authentication Code'),
-              description: __(
-                  'Enter the authentication code provided by your authenticator application.',
-              ),
-              toggleText: __('login using a recovery code'),
-          };
+    const authConfigContent = useMemo<{
+        title: string;
+        description: string;
+        toggleText: string;
+    }>(() => {
+        if (showRecoveryInput) {
+            return {
+                title: __('Recovery Code'),
+                description: __(
+                    'Please confirm access to your account by entering one of your emergency recovery codes.',
+                ),
+                toggleText: __('login using an authentication code'),
+            };
+        }
+
+        return {
+            title: __('Authentication Code'),
+            description: __(
+                'Enter the authentication code provided by your authenticator application.',
+            ),
+            toggleText: __('login using a recovery code'),
+        };
+    }, [showRecoveryInput, __]);
 
     const toggleRecoveryMode = (clearErrors: () => void): void => {
         setShowRecoveryInput(!showRecoveryInput);
