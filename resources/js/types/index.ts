@@ -11,9 +11,6 @@ export type Features = {
     two_factor_authentication: {
         enabled: boolean;
     };
-    password_visibility_toggle: {
-        enabled: boolean;
-    };
     flash_toast: {
         enabled: boolean;
     };

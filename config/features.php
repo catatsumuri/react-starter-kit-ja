@@ -20,10 +20,6 @@ return [
         'enabled' => env('TWO_FACTOR_AUTHENTICATION_ENABLED', true),
     ],
 
-    'password_visibility_toggle' => [
-        'enabled' => env('PASSWORD_VISIBILITY_TOGGLE_ENABLED', true),
-    ],
-
     'flash_toast' => [
         'enabled' => env('FLASH_TOAST_ENABLED', true),
     ],

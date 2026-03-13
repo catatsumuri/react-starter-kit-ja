@@ -8,12 +8,11 @@ import { useLang } from '@/hooks/useLang';
 import { cn, toUrl } from '@/lib/utils';
 import { edit as editAppearance } from '@/routes/appearance';
 import { edit } from '@/routes/profile';
-import { show } from '@/routes/two-factor';
-import { edit as editPassword } from '@/routes/user-password';
+import { edit as editSecurity } from '@/routes/security';
 import type { NavItem, SharedData } from '@/types';
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
-    const { isCurrentUrl } = useCurrentUrl();
+    const { isCurrentOrParentUrl } = useCurrentUrl();
     const { __ } = useLang();
     const { features } = usePage<SharedData>().props;
 
@@ -29,19 +28,10 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
             icon: null,
         },
         {
-            title: __('Password'),
-            href: editPassword(),
+            title: __('Security'),
+            href: editSecurity(),
             icon: null,
         },
-        ...(features.two_factor_authentication.enabled
-            ? [
-                  {
-                      title: __('Two-Factor Authentication'),
-                      href: show(),
-                      icon: null,
-                  },
-              ]
-            : []),
         ...(features.appearance.enabled
             ? [
                   {
@@ -72,7 +62,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                 variant="ghost"
                                 asChild
                                 className={cn('w-full justify-start', {
-                                    'bg-muted': isCurrentUrl(item.href),
+                                    'bg-muted': isCurrentOrParentUrl(item.href),
                                 })}
                             >
                                 <Link href={item.href}>

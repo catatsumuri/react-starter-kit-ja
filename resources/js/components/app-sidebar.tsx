@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -15,7 +16,6 @@ import {
 import { useLang } from '@/hooks/useLang';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
-import AppLogo from './app-logo';
 
 export function AppSidebar() {
     const { __ } = useLang();
@@ -31,7 +31,7 @@ export function AppSidebar() {
         {
             title: __('Repository'),
             href: 'https://github.com/laravel/react-starter-kit',
-            icon: Folder,
+            icon: FolderGit2,
         },
         {
             title: __('Documentation'),

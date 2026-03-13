@@ -3,15 +3,15 @@ import type { ReactNode } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { Toaster } from '@/components/ui/sonner';
 import { useFlashToast } from '@/hooks/use-flash-toast';
-import type { SharedData } from '@/types';
+import type { AppVariant } from '@/types';
 
 type Props = {
     children: ReactNode;
-    variant?: 'header' | 'sidebar';
+    variant?: AppVariant;
 };
 
-export function AppShell({ children, variant = 'header' }: Props) {
-    const isOpen = usePage<SharedData>().props.sidebarOpen;
+export function AppShell({ children, variant = 'sidebar' }: Props) {
+    const isOpen = usePage().props.sidebarOpen;
     useFlashToast();
 
     if (variant === 'header') {

@@ -3,14 +3,14 @@ import AppLogoIcon from '@/components/app-logo-icon';
 import { Toaster } from '@/components/ui/sonner';
 import { useFlashToast } from '@/hooks/use-flash-toast';
 import { home } from '@/routes';
-import type { AuthLayoutProps, SharedData } from '@/types';
+import type { AuthLayoutProps } from '@/types';
 
 export default function AuthSplitLayout({
     children,
     title,
     description,
 }: AuthLayoutProps) {
-    const { name } = usePage<SharedData>().props;
+    const { name } = usePage().props;
     useFlashToast();
 
     return (

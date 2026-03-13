@@ -14,7 +14,6 @@ class FeatureFlagsSharedWithInertiaTest extends TestCase
             ->assertInertia(fn (Assert $page) => $page
                 ->has('features.registration.enabled')
                 ->has('features.two_factor_authentication.enabled')
-                ->has('features.password_visibility_toggle.enabled')
                 ->has('features.flash_toast.enabled')
                 ->has('features.appearance.enabled')
                 ->has('features.account_deletion.enabled')
